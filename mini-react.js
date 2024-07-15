@@ -13,12 +13,12 @@ function createElement(type, props, ...children) {
 function render(element, container) {
   const { type, props } = element;
   const domEl = document.createElement(type);
-  const filterArr = Object.entries(props).filter(([key]) => key !== "children");
-
-  filterArr.forEach(([key, value]) => (domEl[key] = value));
+  Object.entries(props)
+    .filter(([key]) => key !== "children")
+    .forEach(([key, value]) => (domEl[key] = value));
 
   if (props.children) {
-    props.children.forEach((i) => render(i, domEl));
+    props.children.forEach((child) => render(child, domEl));
   }
 
   container.appendChild(domEl);
